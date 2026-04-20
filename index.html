@@ -55,10 +55,40 @@
 
     footer { text-align: center; padding: 24px; font-size: 12px; color: #aaa; }
 
-    @media (max-width: 700px) {
-      th:nth-child(4), td:nth-child(4) { display: none; }
+    
     }
-  </style>
+  
+/* === MOBILE CARDS === */
+@media (max-width: 700px) {
+  table, thead, tbody, th, td, tr { display: block; }
+  thead { display: none; }
+  table { background: transparent; box-shadow: none; }
+
+  tr {
+    background: #fff;
+    margin-bottom: 12px;
+    border-radius: 10px;
+    padding: 12px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+  }
+
+  td {
+    border: none;
+    padding: 6px 0;
+  }
+
+  td::before {
+    content: attr(data-label);
+    font-weight: 600;
+    display: block;
+    font-size: 11px;
+    color: #888;
+  }
+
+  .resumo-text { max-width: 100%; }
+}
+
+</style>
 </head>
 <body>
 
@@ -644,7 +674,7 @@ function renderizar(lista) {
     if (e.o) resumoHtml += `<div class="obs-text">${e.o}</div>`;
     if (!e.r && !e.o) resumoHtml = badge(e.t);
     else resumoHtml = badge(e.t) + ' ' + resumoHtml;
-    tr.innerHTML = `<td class="aula-num">Aula ${e.a}</td><td class="linha-num">${linhaStr}</td><td class="data-cell">${dataStr}</td><td>${resumoHtml}</td>`;
+    tr.innerHTML = `<td class="aula-num">Aula ${e.a}</td><td class="linha-num">${linhaStr}</td><td class="data-cell">${dataStr}</td><td data-label="Resumo">${resumoHtml}</td>`;
     corpo.appendChild(tr);
   });
   document.getElementById('count-info').textContent = `Exibindo ${lista.length} de ${dados.length} entradas`;
